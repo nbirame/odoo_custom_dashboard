@@ -13,34 +13,28 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="row">
-                        <KpiCard name="'Quotations'" value="10" percentage="6"/>
-                        <KpiCard name="'Orders'" value="20" percentage="20"/>
-                        <KpiCard name="'Revenues'" value="'30.50K'" percentage="-3"/>
-                        <KpiCard name="'Average Order'" value="'2.5K'" percentage="-10"/>
-                    </div>-->
                     <div class="row">
                         <div class="col-lg-4 m-0 p-0">
                             <div class="shadow-sm border m-2 p-4 bg-white text-center">
-                                <div class="h1 fw-bold text-dark" style="font-size: 48px">100</div>
+                                <div class="h1 fw-bold text-dark" style="font-size: 48px"> <t t-esc="alloca"/></div>
                                 <div class="h3 text-muted">Nombre de jours alloués</div>
                                 <div class="h3 mt-5">
                                     <span t-attf-class="text-success">
                                         <span t-attf-class="me-1 fa fa-arrow-up"/>
                                         <span>100%</span>
                                     </span>
-                                    <span> Allocation</span>
+                                    <span> Acquis</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 m-0 p-0">
                             <div class="shadow-sm border m-2 p-4 bg-white text-center">
-                                <div class="h1 fw-bold text-dark" style="font-size: 48px">70</div>
+                                <div class="h1 fw-bold text-dark" style="font-size: 48px"><t t-esc="nbPris"/></div>
                                 <div class="h3 text-muted">Nombre de jours déjà pris</div>
                                 <div class="h3 mt-5">
                                     <span t-attf-class="text-success">
                                         <span t-attf-class="me-1 fa fa-arrow-up"/>
-                                        <span>70%</span>
+                                        <span><t t-esc="pourCentPr"/> %</span>
                                     </span>
                                     <span> Déjà pris</span>
                                 </div>
@@ -48,12 +42,12 @@
                         </div>
                         <div class="col-lg-4 m-0 p-0">
                             <div class="shadow-sm border m-2 p-4 bg-white text-center">
-                                <div class="h1 fw-bold text-dark" style="font-size: 48px">30</div>
+                                <div class="h1 fw-bold text-dark" style="font-size: 48px"><t t-esc="nbRestant"/></div>
                                 <div class="h3 text-muted">Nombre de jours restants</div>
                                 <div class="h3 mt-5">
                                     <span t-attf-class="text-danger">
                                         <span t-attf-class="me-1 fa fa-arrow-down"/>
-                                        <span>30%</span>
+                                        <span><t t-esc="pourCentRes"/>%</span>
                                     </span>
                                     <span> Restants</span>
                                 </div>
@@ -65,7 +59,7 @@
                             <div class="shadow-sm border m-2 p-4 bg-white">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="px-3 py-1 bg-primary cursor-pointer">
-                                        <span class="fa fa-arrow-right text-white"/>
+                                        <span class="fa fa-arrow-right text-white"/><span>Nombre de jours de congé</span>
                                     </div>
                                 </div>
                                 <canvas/>
@@ -73,32 +67,6 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-lg-5">-->
-                    <!--<div class="row">
-                        <div class="col-lg-4 m-0 p-0">
-                           <div class="shadow-sm border m-2 p-4 bg-white">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div class="px-3 py-1 bg-primary cursor-pointer">
-                                        <span class="fa fa-arrow-right text-white"/>
-                                    </div>
-                                </div>
-                                <canvas/>
-                            </div>
-                        </div>
-                    </div>-->
-                    <!--<div class="row">
-                        <div class="col m-0 p-0">
-                            <div class="shadow-sm border m-2 p-4 bg-white">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h3 class="text-primary fw-bold">Mois</h3>
-                                    <div class="px-3 py-1 bg-primary cursor-pointer">
-                                        <span class="fa fa-arrow-right text-white"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
             </div>
         </div>
     </t>

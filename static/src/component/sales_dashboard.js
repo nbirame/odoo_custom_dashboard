@@ -1,46 +1,81 @@
 /** @odoo-module **/
 
 import rpc from 'web.rpc';
+import { session } from '@web/session';
 import { registry } from "@web/core/registry";
 const { Component } = owl;
 
 export class OwlSaesDashboard extends Component {
+    setup() {
+        this.alloca = 0;
+        this.nbPris = 0;
+        this.nbRestant = 0;
+        this.pourCentPr = 0;
+        this.pourCentRes = 0;
+    }
     /**
      * Cette méthode Owl est appelée avant le rendu du composant.
-     * On y fait l'appel RPC pour récupérer la somme des jours alloués.
+     * On y fait les appels RPC pour récupérer les jours alloués et pris.
      */
     async willStart() {
-        // 1) Appeler le modèle `hr.leave.allocation` pour récupérer
-        //    le nombre total de jours alloués
+        // Domaine pour l'utilisateur connecté
+        const userDomain = [['employee_id.user_id', '=', session.uid]];
+
+        //----------------------------------------------------------------------
+        // 1) Somme des jours alloués (hr.leave.allocation)
+        //----------------------------------------------------------------------
         const allocations = await rpc.query({
             model: 'hr.leave.allocation',
             method: 'search_read',
             args: [
-                // Ajustez le domaine pour filtrer sur l’utilisateur courant
-                // ou toute autre condition
-                [],
-                ['number_of_days'] // Champs dont on a besoin
+                userDomain,
+                ['number_of_days']
             ],
         });
 
-        // 2) Calculer la somme des jours alloués
         let totalAllocated = 0;
         allocations.forEach(record => {
             totalAllocated += record.number_of_days || 0;
         });
 
-        // 3) Déterminer (à titre d’exemple) le nombre de jours pris et restant
-        //    en vous basant sur d'autres appels RPC ou votre logique métier.
-        //    Ici, on simule simplement des valeurs (à adapter selon vos besoins).
-        let taken = 5;         // ex. : total de jours déjà pris
-        let remaining = totalAllocated - taken; // jours restants
+        //----------------------------------------------------------------------
+        // 2) Somme des jours déjà pris (hr.leave)
+        //    On filtre généralement sur l'état 'validate' (ou 'validate', 'validate1',
+        //    selon votre workflow) pour comptabiliser les congés réellement utilisés.
+        //----------------------------------------------------------------------
+        const leaves = await rpc.query({
+            model: 'hr.leave',
+            method: 'search_read',
+            args: [
+                [...userDomain, ['state', '=', 'validate']],
+                ['number_of_days']
+            ],
+        });
 
-        // 4) Préparer les données à afficher dans le graphique
+        let totalTaken = 0;
+        leaves.forEach(record => {
+            totalTaken += record.number_of_days || 0;
+        });
+
+        //----------------------------------------------------------------------
+        // 3) Calculer le restant
+        //----------------------------------------------------------------------
+        let remaining = totalAllocated - totalTaken;
+
+        //----------------------------------------------------------------------
+        // 4) Préparer les données pour le graphique
+        //----------------------------------------------------------------------
         this.data = [
-            { conge: "Allocation", count: totalAllocated },
-            { conge: "Pris",       count: taken },
-            { conge: "Restant",    count: remaining },
+            { conge: "Acquis", count: totalAllocated },
+            { conge: "Déjà pris",       count: totalTaken },
+            { conge: "Restants",    count: remaining },
         ];
+        this.alloca = totalAllocated
+        this.nbPris = totalTaken
+        this.nbRestant = remaining
+        this.pourCentPr = (100 * totalTaken)/totalAllocated
+        this.pourCentRes = (100 * remaining)/totalAllocated
+
     }
 
     /**
@@ -52,7 +87,7 @@ export class OwlSaesDashboard extends Component {
 
         // Construire le graphique en utilisant la liste `this.data`
         new Chart(canvas, {
-            type: "bar",
+            type: "pie",
             data: {
                 labels: this.data.map((row) => row.conge),
                 datasets: [
