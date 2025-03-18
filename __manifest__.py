@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Owl Tutorial',
+    'name': 'Owl Dashboard',
     'version': '1.0',
-    'summary': 'OWL Tutorial',
+    'summary': 'OWL BirTech',
     'sequence': -1,
-    'description': """OWL Tutorial Custom Dashboard""",
+    'description': """Dashboard congé""",
     'category': 'OWL',
-    'depends': ['base', 'web', 'sale_management', 'board'],
+    'depends': ['base', 'web', 'sale_management', 'board', 'hr_holidays'],
     'data': [
         'views/sales_dashboard.xml'
     ],
