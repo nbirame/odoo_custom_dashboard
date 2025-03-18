@@ -5,7 +5,7 @@ import { session } from '@web/session';
 import { registry } from "@web/core/registry";
 const { Component } = owl;
 
-export class OwlSaesDashboard extends Component {
+export class OwlCongeDashboard extends Component {
     setup() {
         this.alloca = 0;
         this.nbPris = 0;
@@ -36,7 +36,7 @@ export class OwlSaesDashboard extends Component {
         let totalAllocated = 0;
         allocations.forEach(record => {
             totalAllocated += record.number_of_days || 0;
-            totalAllocated = (totalAllocated).toFixed(2);
+            totalAllocated = Math.round(totalAllocated);
         });
 
         //----------------------------------------------------------------------
@@ -102,5 +102,5 @@ export class OwlSaesDashboard extends Component {
     }
 }
 
-OwlSaesDashboard.template = "owl.OwlSalesDashboard";
-registry.category("actions").add("owl.sales_dashboard", OwlSaesDashboard);
+OwlCongeDashboard.template = "owl.OwlCongeDashboard";
+registry.category("actions").add("owl.conge_dashboard", OwlCongeDashboard);
