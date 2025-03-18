@@ -66,15 +66,15 @@ export class OwlSaesDashboard extends Component {
         // 4) Préparer les données pour le graphique
         //----------------------------------------------------------------------
         this.data = [
-            { conge: "Acquis", count: totalAllocated },
+            { conge: "Acquis", count: totalAllocated.toFixed(2) },
             { conge: "Déjà pris",       count: totalTaken },
             { conge: "Restants",    count: remaining },
         ];
-        this.alloca = totalAllocated
+        this.alloca = totalAllocated.toFixed(2)
         this.nbPris = totalTaken
         this.nbRestant = remaining
-        this.pourCentPr = (100 * totalTaken)/totalAllocated
-        this.pourCentRes = (100 * remaining)/totalAllocated
+        this.pourCentPr = ((100 * totalTaken)/totalAllocated).toFixed(2))
+        this.pourCentRes = ((100 * remaining)/totalAllocated).toFixed(2))
 
     }
 
