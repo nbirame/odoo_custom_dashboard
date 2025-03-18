@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Owl Dashboard',
+    'name': 'Owl Tutorial',
     'version': '1.0',
     'summary': 'OWL BirTech',
     'sequence': -1,

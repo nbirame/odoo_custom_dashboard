@@ -36,7 +36,7 @@ export class OwlSaesDashboard extends Component {
         let totalAllocated = 0;
         allocations.forEach(record => {
             totalAllocated += record.number_of_days || 0;
-            totalAllocated = Math.round(totalAllocated);
+            totalAllocated = (totalAllocated).toFixed(2);
         });
 
         //----------------------------------------------------------------------
