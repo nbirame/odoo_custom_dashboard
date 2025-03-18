@@ -36,6 +36,7 @@ export class OwlSaesDashboard extends Component {
         let totalAllocated = 0;
         allocations.forEach(record => {
             totalAllocated += record.number_of_days || 0;
+            totalAllocated = Math.round(totalAllocated);
         });
 
         //----------------------------------------------------------------------
@@ -66,15 +67,15 @@ export class OwlSaesDashboard extends Component {
         // 4) Préparer les données pour le graphique
         //----------------------------------------------------------------------
         this.data = [
-            { conge: "Acquis", count: totalAllocated.toFixed(2) },
+            { conge: "Acquis", count: totalAllocated },
             { conge: "Déjà pris",       count: totalTaken },
             { conge: "Restants",    count: remaining },
         ];
-        this.alloca = totalAllocated.toFixed(2)
+        this.alloca = totalAllocated
         this.nbPris = totalTaken
         this.nbRestant = remaining
-        this.pourCentPr = ((100 * totalTaken)/totalAllocated).toFixed(2))
-        this.pourCentRes = ((100 * remaining)/totalAllocated).toFixed(2))
+        this.pourCentPr = ((100 * totalTaken)/totalAllocated).toFixed(2);
+        this.pourCentRes = ((100 * remaining)/totalAllocated).toFixed(2);
 
     }
 
